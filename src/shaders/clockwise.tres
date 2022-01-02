@@ -1,0 +1,59 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "/* 
+This shader is under CC0 license. Feel free to use, improve and 
+change this shader according to your needs and consider sharing 
+the modified result to godotshaders.com.
+godotshaders.com/shader/radial-progress-shader/
+@wdylanbibb
+*/
+
+shader_type canvas_item;
+
+const float PI = 3.141592656;
+
+uniform sampler2D fill_texture_overlay;
+uniform sampler2D bg_texture;
+uniform bool bg_transparent;
+uniform float fill_ratio:hint_range(0., 1.) = 1.;
+// uniform float start_angle:hint_range(0., 360.) = 0.;
+uniform float max_angle:hint_range(0., 360.) = 360.;
+uniform bool invert_fill = false;
+uniform bool reflect_x = false;
+uniform bool reflect_y = false;
+uniform vec2 offset = vec2(0., 0.);
+uniform bool sprite_sheet = false;
+uniform int sprite_frame = 0;
+
+//mat2 tex_rotate(float _angle){
+//	return mat2(vec2(cos(_angle), -sin(_angle)), vec2(sin(_angle), cos(_angle)));
+//}
+
+void fragment() {
+	float fill_angle = radians(fill_ratio * max_angle);
+	vec2 uv = ((UV * 2. - 1.) - offset); // * tex_rotate(-radians(start_angle));
+
+	if (sprite_sheet) {
+		float strip_size = (TEXTURE_PIXEL_SIZE.y / TEXTURE_PIXEL_SIZE.x); // (1/16 / 1/288) = 18
+		float strip_step = (TEXTURE_PIXEL_SIZE.x / TEXTURE_PIXEL_SIZE.y) * 2.; // 0.05556 * 2 because texture go -1 to +1
+		float sprite_frame_offset = (float(sprite_frame) * strip_step);
+		uv.x -= (strip_step / 2.) - (strip_step * (strip_size / 2.)) + sprite_frame_offset;
+		uv.y *= strip_step / 2.; // fill_ratio linear progress when texture is not square
+	}
+
+	if (reflect_x) {
+		uv *= mat2(vec2(1., 0.), vec2(0., 1.));
+	}
+	if (reflect_y) {
+		uv *= mat2(vec2(1., 0.), vec2(0., -1.));
+	}
+
+	if ((!invert_fill && atan(uv.x, uv.y) + PI < fill_angle) || (invert_fill && atan(uv.x, uv.y) + PI > fill_angle)) {
+		COLOR = texture(TEXTURE, UV) * texture(fill_texture_overlay, UV);
+	} else if (bg_transparent) {
+		COLOR.a = 0.
+	} else {
+		COLOR = texture(bg_texture, UV);
+	}
+}"

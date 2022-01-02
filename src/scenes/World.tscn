@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://src/nodes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/entities/tree/Tree.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/nodes/CursorSelector.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/ressources/tileset.tres" type="TileSet" id=4]
+[ext_resource path="res://src/scenes/World.gd" type="Script" id=5]
+[ext_resource path="res://src/chunk/Chunk.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/shaders/tilt_shift.tres" type="Shader" id=7]
+[ext_resource path="res://src/entities/rock/Rock.tscn" type="PackedScene" id=8]
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 7 )
+shader_param/limit = 0.25
+shader_param/blur = 1.5
+shader_param/intensity = 0.15
+shader_param/debug = false
+
+[sub_resource type="ProceduralSky" id=1]
+
+[sub_resource type="Environment" id=2]
+background_mode = 4
+background_sky = SubResource( 1 )
+glow_enabled = true
+glow_levels/2 = true
+glow_levels/4 = true
+glow_strength = 1.05
+glow_blend_mode = 0
+glow_hdr_threshold = 0.8
+glow_bicubic_upscale = true
+
+[node name="World" type="Node2D"]
+script = ExtResource( 5 )
+chunk_scene = ExtResource( 6 )
+player_path = NodePath("YSort/Player")
+chunks_parent_path = NodePath("YSort/Chunks")
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Chunks" type="YSort" parent="YSort"]
+
+[node name="Player" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 464, 296 )
+
+[node name="Path" type="TileMap" parent="YSort"]
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 16, 16 )
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+format = 1
+tile_data = PoolIntArray( 131080, 14, 65536, 131081, 14, 2, 131082, 14, 2, 131083, 14, 2, 196616, 14, 131072, 196617, 14, 131073, 196618, 14, 131075, 196619, 15, 2, 196620, 14, 65539, 196621, 14, 2, 196622, 14, 2, 262152, 14, 196608, 262153, 14, 262146, 262154, 14, 196609, 262155, 14, 131074, 262156, 14, 131073, 262157, 15, 2, 262158, 15, 2, 262159, 14, 65539, 262160, 14, 2, 262161, 14, 2, 327691, 14, 262146, 327692, 14, 196609, 327693, 15, 2, 327694, 15, 2, 327695, 14, 131073, 327696, 14, 65538, 327697, 15, 2, 327698, 14, 65539, 327699, 14, 2, 327700, 14, 2, 393229, 14, 196609, 393230, 14, 65538, 393231, 14, 196610, 393232, 15, 2, 393233, 15, 2, 393234, 15, 2, 393235, 15, 2, 393236, 14, 131074, 393237, 14, 65539, 393238, 14, 2, 393239, 14, 2, 393240, 14, 2, 458766, 14, 262146, 458767, 14, 262146, 458768, 14, 196609, 458769, 14, 131074, 458770, 14, 65538, 458771, 14, 131075, 458772, 14, 131073, 458773, 15, 2, 458774, 14, 196610, 458775, 15, 2, 458776, 14, 65538, 524305, 14, 262146, 524306, 14, 262146, 524307, 14, 196609, 524308, 15, 2, 524309, 14, 65538, 524310, 15, 2, 524311, 14, 131073, 524312, 14, 196610, 589844, 14, 262146, 589845, 14, 262146, 589846, 14, 262146, 589847, 14, 262146, 589848, 14, 262146 )
+
+[node name="Misc" type="TileMap" parent="YSort"]
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 16, 16 )
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_y_sort = true
+show_collision = true
+format = 1
+tile_data = PoolIntArray( 131080, 4, 4, 131081, 4, 65540, 131082, 4, 131073, 131083, 4, 65536, 131084, 4, 3, 196616, 4, 131074, 196620, 4, 1, 196621, 4, 65537, 196622, 4, 65537, 196623, 4, 3, 262152, 4, 1, 262153, 4, 65537, 262154, 4, 3, 262159, 4, 1, 262160, 4, 65537, 262161, 4, 65537, 262162, 4, 3, 327690, 4, 1, 327691, 4, 65537, 327692, 4, 65540, 327698, 4, 1, 327699, 4, 65537, 327700, 4, 65537, 327701, 4, 3, 393237, 4, 1, 393238, 4, 65537, 393239, 4, 65537, 393240, 4, 65540, 458766, 4, 65536, 458767, 4, 65537, 458768, 4, 3, 524304, 4, 1, 524305, 4, 65537, 524306, 4, 65537, 524307, 4, 3, 589835, 11, 0, 589841, 4, 131073, 589843, 4, 1, 589844, 4, 65537, 589845, 4, 65537, 589846, 4, 65537, 589847, 4, 65537, 589848, 4, 65540 )
+
+[node name="Trees" type="YSort" parent="YSort"]
+
+[node name="Tree" parent="YSort/Trees" instance=ExtResource( 2 )]
+position = Vector2( 104, 152 )
+
+[node name="Tree2" parent="YSort/Trees" instance=ExtResource( 2 )]
+position = Vector2( 72, 152 )
+
+[node name="Tree3" parent="YSort/Trees" instance=ExtResource( 2 )]
+position = Vector2( 136, 152 )
+
+[node name="Rocks" type="YSort" parent="YSort"]
+
+[node name="Rock" parent="YSort/Rocks" instance=ExtResource( 8 )]
+position = Vector2( 136, 200 )
+
+[node name="Rock2" parent="YSort/Rocks" instance=ExtResource( 8 )]
+position = Vector2( 216, 168 )
+
+[node name="CursorSelector" parent="." instance=ExtResource( 3 )]
+position = Vector2( 24, 8 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Tilt shift" type="ColorRect" parent="CanvasLayer"]
+material = SubResource( 3 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )

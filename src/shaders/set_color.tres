@@ -1,0 +1,23 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "/* 
+This shader is under MIT license. Feel free to use, improve and 
+change this shader according to your needs and consider sharing 
+the modified result to godotshaders.com.
+@factoria
+*/
+
+shader_type canvas_item;
+
+uniform vec4 color:hint_color = vec4(1.);
+uniform bool hard_alpha = false;
+
+void fragment() {
+	vec4 current_color = texture(TEXTURE, UV);
+	if (hard_alpha && current_color.a != 0.) {
+		current_color.a = 1.;
+	}
+	COLOR.a = current_color.a;
+	COLOR.rgb = color.rgb;
+}"
