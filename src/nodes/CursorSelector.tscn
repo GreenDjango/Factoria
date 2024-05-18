@@ -1,146 +1,141 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=3 uid="uid://bs0dnneh8cyn3"]
 
-[ext_resource path="res://assets/ui/selectbox_bl.png" type="Texture" id=1]
-[ext_resource path="res://assets/ui/selectbox_tl.png" type="Texture" id=2]
-[ext_resource path="res://assets/ui/selectbox_br.png" type="Texture" id=3]
-[ext_resource path="res://assets/ui/selectbox_tr.png" type="Texture" id=4]
-[ext_resource path="res://src/nodes/CursorSelector.gd" type="Script" id=5]
-[ext_resource path="res://assets/ui/action_icons.png" type="Texture" id=6]
-[ext_resource path="res://src/shaders/clockwise.tres" type="Shader" id=7]
+[ext_resource type="Texture2D" uid="uid://cqlxi46ink2k3" path="res://assets/ui/selectbox_bl.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://cyhs24e36veff" path="res://assets/ui/selectbox_tl.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://ckeqg86p3q4q4" path="res://assets/ui/selectbox_br.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://r307wm0p6d2i" path="res://assets/ui/selectbox_tr.png" id="4"]
+[ext_resource type="Script" path="res://src/nodes/CursorSelector.gd" id="5"]
+[ext_resource type="Texture2D" uid="uid://csi7coapq4han" path="res://assets/ui/action_icons.png" id="6"]
+[ext_resource type="Shader" uid="uid://cfit664xdq4he" path="res://src/shaders/clockwise.tres" id="7"]
 
-[sub_resource type="ShaderMaterial" id=23]
-shader = ExtResource( 7 )
-shader_param/bg_transparent = true
-shader_param/fill_ratio = 1.0
-shader_param/max_angle = 360.0
-shader_param/invert_fill = false
-shader_param/reflect_x = false
-shader_param/reflect_y = true
-shader_param/offset = Vector2( 0, 0 )
-shader_param/sprite_sheet = false
-shader_param/sprite_frame = 0
+[sub_resource type="ShaderMaterial" id="23"]
+shader = ExtResource("7")
+shader_parameter/bg_transparent = true
+shader_parameter/fill_ratio = 1.0
+shader_parameter/max_angle = 360.0
+shader_parameter/invert_fill = false
+shader_parameter/reflect_x = false
+shader_parameter/reflect_y = true
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/sprite_sheet = false
+shader_parameter/sprite_frame = 0
 
-[sub_resource type="QuadMesh" id=2]
-size = Vector2( 16, 16 )
+[sub_resource type="QuadMesh" id="2"]
+size = Vector2(16, 16)
 
-[sub_resource type="ShaderMaterial" id=22]
-shader = ExtResource( 7 )
-shader_param/bg_transparent = true
-shader_param/fill_ratio = 0.375
-shader_param/max_angle = 360.0
-shader_param/invert_fill = false
-shader_param/reflect_x = false
-shader_param/reflect_y = false
-shader_param/offset = Vector2( 0, 0 )
-shader_param/sprite_sheet = true
-shader_param/sprite_frame = 0
+[sub_resource type="ShaderMaterial" id="22"]
+shader = ExtResource("7")
+shader_parameter/bg_transparent = true
+shader_parameter/fill_ratio = 0.375
+shader_parameter/max_angle = 360.0
+shader_parameter/invert_fill = false
+shader_parameter/reflect_x = false
+shader_parameter/reflect_y = false
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/sprite_sheet = true
+shader_parameter/sprite_frame = 0
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id="1"]
 resource_name = "Select Highlight "
 length = 0.6
-loop = true
+loop_mode = 1
 step = 0.01
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("SelectTL:offset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.15, 0.3, 0.45, 0.6 ),
-"transitions": PoolRealArray( 0, 0, 0, 0, 0 ),
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(0, 0, 0, 0, 0),
 "update": 0,
-"values": [ Vector2( -3, -3 ), Vector2( -2, -2 ), Vector2( -1, -1 ), Vector2( -2, -2 ), Vector2( -3, -3 ) ]
+"values": [Vector2(-3, -3), Vector2(-2, -2), Vector2(-1, -1), Vector2(-2, -2), Vector2(-3, -3)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("SelectTR:offset")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.15, 0.3, 0.45, 0.6 ),
-"transitions": PoolRealArray( 0, 0, 0, 0, 0 ),
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(0, 0, 0, 0, 0),
 "update": 0,
-"values": [ Vector2( 3, -3 ), Vector2( 2, -2 ), Vector2( 1, -1 ), Vector2( 2, -2 ), Vector2( 3, -3 ) ]
+"values": [Vector2(3, -3), Vector2(2, -2), Vector2(1, -1), Vector2(2, -2), Vector2(3, -3)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("SelectBR:offset")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.15, 0.3, 0.45, 0.6 ),
-"transitions": PoolRealArray( 0, 0, 0, 0, 0 ),
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(0, 0, 0, 0, 0),
 "update": 0,
-"values": [ Vector2( 3, 3 ), Vector2( 2, 2 ), Vector2( 1, 1 ), Vector2( 2, 2 ), Vector2( 3, 3 ) ]
+"values": [Vector2(3, 3), Vector2(2, 2), Vector2(1, 1), Vector2(2, 2), Vector2(3, 3)]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("SelectBL:offset")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.15, 0.3, 0.45, 0.6 ),
-"transitions": PoolRealArray( 0, 0, 0, 0, 0 ),
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(0, 0, 0, 0, 0),
 "update": 0,
-"values": [ Vector2( -3, 3 ), Vector2( -2, 2 ), Vector2( -1, 1 ), Vector2( -2, 2 ), Vector2( -3, 3 ) ]
+"values": [Vector2(-3, 3), Vector2(-2, 2), Vector2(-1, 1), Vector2(-2, 2), Vector2(-3, 3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s85fk"]
+_data = {
+"Select Highlight ": SubResource("1")
 }
 
 [node name="CursorSelector" type="Node2D"]
-script = ExtResource( 5 )
+script = ExtResource("5")
 
 [node name="ZoneHighlight" type="MeshInstance2D" parent="."]
-self_modulate = Color( 1, 1, 1, 0.313726 )
-material = SubResource( 23 )
-position = Vector2( -2.38419e-07, 0 )
-mesh = SubResource( 2 )
+self_modulate = Color(1, 1, 1, 0.313726)
+material = SubResource("23")
+position = Vector2(-2.38419e-07, 0)
+mesh = SubResource("2")
 
-[node name="SelectTL" type="Sprite" parent="."]
-position = Vector2( -8, -8 )
-texture = ExtResource( 2 )
-offset = Vector2( -3, -3 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="SelectTL" type="Sprite2D" parent="."]
+position = Vector2(-8, -8)
+texture = ExtResource("2")
+offset = Vector2(-3, -3)
 
-[node name="SelectTR" type="Sprite" parent="."]
-position = Vector2( 8, -8 )
-texture = ExtResource( 4 )
-offset = Vector2( 3, -3 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="SelectTR" type="Sprite2D" parent="."]
+position = Vector2(8, -8)
+texture = ExtResource("4")
+offset = Vector2(3, -3)
 
-[node name="SelectBR" type="Sprite" parent="."]
-position = Vector2( 8, 8 )
-texture = ExtResource( 3 )
-offset = Vector2( 3, 3 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="SelectBR" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+texture = ExtResource("3")
+offset = Vector2(3, 3)
 
-[node name="SelectBL" type="Sprite" parent="."]
-position = Vector2( -8, 8 )
-texture = ExtResource( 1 )
-offset = Vector2( -3, 3 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="SelectBL" type="Sprite2D" parent="."]
+position = Vector2(-8, 8)
+texture = ExtResource("1")
+offset = Vector2(-3, 3)
 
-[node name="ActionIcon" type="Sprite" parent="."]
-material = SubResource( 22 )
-texture = ExtResource( 6 )
+[node name="ActionIcon" type="Sprite2D" parent="."]
+material = SubResource("22")
+texture = ExtResource("6")
 hframes = 18
 
-[node name="ActionIconUnder" type="Sprite" parent="ActionIcon"]
-modulate = Color( 0.290196, 0.290196, 0.290196, 1 )
+[node name="ActionIconUnder" type="Sprite2D" parent="ActionIcon"]
+modulate = Color(0.290196, 0.290196, 0.290196, 1)
 show_behind_parent = true
-texture = ExtResource( 6 )
+texture = ExtResource("6")
 hframes = 18
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_s85fk")
+}
 autoplay = "Select Highlight "
-"anims/Select Highlight " = SubResource( 1 )

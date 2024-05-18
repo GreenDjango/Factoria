@@ -1,4 +1,4 @@
-[gd_resource type="Shader" format=2]
+[gd_resource type="Shader" format=3 uid="uid://cfit664xdq4he"]
 
 [resource]
 code = "/* 
@@ -11,7 +11,7 @@ godotshaders.com/shader/radial-progress-shader/
 
 shader_type canvas_item;
 
-const float PI = 3.141592656;
+// const float PI = 3.141592656;
 
 uniform sampler2D fill_texture_overlay;
 uniform sampler2D bg_texture;
@@ -52,7 +52,7 @@ void fragment() {
 	if ((!invert_fill && atan(uv.x, uv.y) + PI < fill_angle) || (invert_fill && atan(uv.x, uv.y) + PI > fill_angle)) {
 		COLOR = texture(TEXTURE, UV) * texture(fill_texture_overlay, UV);
 	} else if (bg_transparent) {
-		COLOR.a = 0.
+		COLOR.a = 0.;
 	} else {
 		COLOR = texture(bg_texture, UV);
 	}

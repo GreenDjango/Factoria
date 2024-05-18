@@ -1,40 +1,32 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://ofi3otwt0tg6"]
 
-[ext_resource path="res://src/chunk/Chunk.gd" type="Script" id=1]
-[ext_resource path="res://assets/fonts/ThinPixel7.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://src/ressources/tileset_ground.tres" type="TileSet" id=3]
+[ext_resource type="Script" path="res://src/chunk/Chunk.gd" id="1"]
+[ext_resource type="FontFile" uid="uid://b4tkwe4wmishh" path="res://assets/fonts/ThinPixel7.ttf" id="2"]
+[ext_resource type="TileSet" path="res://src/ressources/tileset_ground.tres" id="3"]
 
-[sub_resource type="DynamicFont" id=1]
-size = 20
-outline_size = 1
-outline_color = Color( 0, 0, 0, 0.862745 )
-extra_spacing_top = -7
-extra_spacing_space = -2
-font_data = ExtResource( 2 )
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("2")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
-[node name="Chunk" type="YSort"]
-script = ExtResource( 1 )
+[node name="Chunk" type="Node2D"]
+script = ExtResource("1")
 
 [node name="Ground" type="TileMap" parent="."]
-tile_set = ExtResource( 3 )
-cell_size = Vector2( 16, 16 )
-cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-show_collision = true
-format = 1
-tile_data = PoolIntArray( 0, 18, 0, 1, 18, 0, 65536, 18, 0 )
-__meta__ = {
-"_edit_lock_": true
-}
+tile_set = ExtResource("3")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 3, 0, 1, 3, 0, 65536, 3, 0)
 
 [node name="Coords" type="Label" parent="."]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 42.0
-margin_bottom = 16.0
-custom_fonts/font = SubResource( 1 )
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 42.0
+offset_bottom = 16.0
+theme_override_fonts/font = SubResource("1")
 text = "Chunk test"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Entities" type="YSort" parent="."]
+[node name="Entities" type="Node2D" parent="."]

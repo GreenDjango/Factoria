@@ -1,23 +1,23 @@
 class_name Chunk
-extends YSort
+extends Node2D
 
 var chunk_data := []
-var chunk_coords := Vector2() setget _chunk_coords_setter
-var chunk_id : String setget _chunk_id_setter
+var chunk_coords := Vector2(): set = _chunk_coords_setter
+var chunk_id : String
 var chunk_entities := {}
 
 const TILE_SIZE := GlobalsStatic.TILE_SIZE
 const CHUNK_SIZE := GlobalsStatic.CHUNK_SIZE
 
-onready var ground := $Ground
-onready var entities_node := $Entities
+@onready var ground : TileMap = $Ground
+@onready var entities_node : Node2D = $Entities
 
 func _ready():
 	pass
 
 func setup(_chunk_coords : Vector2):
 	_chunk_coords_setter(_chunk_coords)
-	position = coords_to_world_position(chunk_coords)
+	position = Chunk.coords_to_world_position(chunk_coords)
 	$Coords.text = str(chunk_coords)
 	_generate_ground_grass()
 	_apply_ground_checkboard()
@@ -28,15 +28,15 @@ func _generate_ground_grass():
 	var y = 0
 	while x < CHUNK_SIZE.x:
 		while y < CHUNK_SIZE.y:
-			var cell = ground.get_cell(x, y)
-			if (cell == TileMap.INVALID_CELL):
-				ground.set_cell(x, y, 15)
+			var cell = ground.get_cell_source_id(-1, Vector2i(x, y))
+			if (cell == -1):
+				ground.set_cell(-1, Vector2i(x, y), 15)
 			y += 1
 		y = 0
 		x += 1
 
 func _apply_ground_checkboard():
-	var used_cells = ground.get_used_cells_by_id(15)
+	var used_cells = ground.get_used_cells_by_id(-1, 15)
 	for cell in used_cells:
 		if (int(cell.x) % 2 == int(cell.y) % 2):
 			ground.set_cellv(cell, 16)
@@ -52,13 +52,13 @@ func _generate_entities():
 		while y < CHUNK_SIZE.y:
 			var entity : Entity = null
 			if (randi() % 10 == 0):
-				entity = Globals.entities[Globals.ENTITIES_ID.TREE].instance()
+				entity = Globals.entities[Globals.ENTITIES_ID.TREE].instantiate()
 			elif (randi() % 10 == 0):
-				entity = Globals.entities[Globals.ENTITIES_ID.ROCK].instance()
+				entity = Globals.entities[Globals.ENTITIES_ID.ROCK].instantiate()
 			if (entity):
 				entities_node.add_child(entity, true)
 				entity.position = Vector2(x * TILE_SIZE.x + TILE_SIZE.x/ 2, y * TILE_SIZE.x + TILE_SIZE.y / 2)
-				chunk_entities[coords_to_id(Vector2(x, y))] = entity
+				chunk_entities[Chunk.coords_to_id(Vector2(x, y))] = entity
 			y += 1
 		y = 0
 		x += 1
@@ -66,15 +66,11 @@ func _generate_entities():
 func get_entity_from_world_position(pos : Vector2) -> Entity:
 	var local_pos = Vector2(pos.x - position.x, pos.y - position.y)
 	var coords = Vector2(int(local_pos.x / TILE_SIZE.x), int(local_pos.y / TILE_SIZE.y))
-	return chunk_entities.get(coords_to_id(coords))
-
-func _chunk_id_setter(new_id):
-	chunk_id = new_id
-	chunk_coords = id_to_coords(new_id)
+	return chunk_entities.get(Chunk.coords_to_id(coords))
 
 func _chunk_coords_setter(new_coords):
 	chunk_coords = Vector2(int(new_coords.x), int(new_coords.y))
-	chunk_id = coords_to_id(new_coords)
+	chunk_id = Chunk.coords_to_id(new_coords)
 
 static func coords_to_id(coords : Vector2) -> String:
 	return str(int(coords.x)) + ":" + str(int(coords.y))

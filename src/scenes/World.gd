@@ -1,11 +1,9 @@
 extends Node2D
 
-export (PackedScene) var chunk_scene : PackedScene
-export (NodePath) var player_path : NodePath
-export (NodePath) var chunks_parent_path : NodePath
+@export var chunk_scene : PackedScene
+@export var player : Player
+@export var chunks_parent : Node2D
 
-var player : Player
-var chunks_parent : YSort
 var current_chunk_coords := Vector2()
 var chunks := Globals.chunks
 
@@ -13,8 +11,6 @@ const CHUNK_SIZE := GlobalsStatic.CHUNK_SIZE
 const RENDER_DISTANCE := GlobalsStatic.RENDER_DISTANCE
 
 func _ready():
-	player = get_node(player_path)
-	chunks_parent = get_node(chunks_parent_path)
 	assert(player, "Player is null")
 	assert(chunks_parent, "Chunk parent is null")
 
@@ -37,7 +33,7 @@ func _load_chunks(from_coords : Vector2):
 				continue
 			var chunk_id := Chunk.coords_to_id(chunk_coords)
 			if !chunks.has(chunk_id):
-				var new_chunk : Chunk = chunk_scene.instance()
+				var new_chunk : Chunk = chunk_scene.instantiate()
 				chunks_parent.add_child(new_chunk, true)
 				chunks[chunk_id] = new_chunk
 				new_chunk.setup(chunk_coords)

@@ -1,15 +1,14 @@
 class_name Player
-extends KinematicBody2D
+extends CharacterBody2D
 
-var velocity := Vector2.ZERO
 const speed_max := 70.0
 var acceleration := 0.1
 const acceleration_step := 0.04
 const friction := 6.0
 
-onready var shape_sprite := $Shape
-onready var hair_sprite := $Hair
-onready var hand_sprite := $Hand
+@onready var shape_sprite := $Shape3D
+@onready var hair_sprite := $Hair
+@onready var hand_sprite := $Hand
 
 func _ready():
 	_play_animation("idle")
@@ -51,12 +50,13 @@ func _move_player(input: Vector2):
 		velocity.y = move_toward(velocity.y, 0, friction)
 
 	# warning-ignore:return_value_discarded
-	move_and_slide(velocity)
+	set_velocity(velocity)
+	move_and_slide()
 
-func _play_animation(name : String):
-	shape_sprite.play(name)
-	hair_sprite.play(name)
-	hand_sprite.play(name)
+func _play_animation(animation_name : String):
+	shape_sprite.play(animation_name)
+	hair_sprite.play(animation_name)
+	hand_sprite.play(animation_name)
 
 func _flip_sprite(is_flip : bool):
 	shape_sprite.flip_h = is_flip

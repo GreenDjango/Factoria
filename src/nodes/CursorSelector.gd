@@ -1,15 +1,15 @@
 extends Node2D
 
-onready var zone_highlight := $ZoneHighlight
-onready var select_tl := $SelectTL
-onready var select_tr := $SelectTR
-onready var select_br := $SelectBR
-onready var select_bl := $SelectBL
-onready var action_icon := $ActionIcon
-onready var action_icon_under := $ActionIcon/ActionIconUnder
+@onready var zone_highlight := $ZoneHighlight
+@onready var select_tl := $SelectTL
+@onready var select_tr := $SelectTR
+@onready var select_br := $SelectBR
+@onready var select_bl := $SelectBL
+@onready var action_icon := $ActionIcon
+@onready var action_icon_under := $ActionIcon/ActionIconUnder
 
-var hover_color := ColorN("white", 0.3)
-var hover_warning_color := ColorN("red", 0.3)
+var hover_color := Color(Color.WHITE, 0.3)
+var hover_warning_color := Color(Color.RED, 0.3)
 
 var selector_size := Vector2(1, 1)
 var chunks := Globals.chunks
@@ -48,8 +48,8 @@ func _refresh_action_progress(delta : float):
 	if action_step_remaining >= action_step_need:
 		_set_current_action(false)
 	var action_progress = (action_step_remaining + 1) / float(action_step_need + 1)
-	action_icon.material.set_shader_param("fill_ratio", action_progress)
-	zone_highlight.material.set_shader_param("fill_ratio", action_progress)
+	action_icon.material.set_shader_parameter("fill_ratio", action_progress)
+	zone_highlight.material.set_shader_parameter("fill_ratio", action_progress)
 
 func _refresh_position():
 	# var world_pos = get_viewport_transform().affine_inverse().xform(get_viewport().get_mouse_position())
@@ -73,19 +73,19 @@ func _refresh_status():
 	if entity:
 #		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 		_set_action_icon(true, entity.action_type)
-		modulate = Color.white
+		modulate = Color.WHITE
 	else:
 #		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		_set_action_icon(false)
 		modulate = Color(1, 1, 1, 0.4)
 
-func _set_action_icon(is_visible : bool, action_type : int = 0):
-	action_icon.visible = is_visible
+func _set_action_icon(_is_visible : bool, action_type : int = 0):
+	action_icon.visible = _is_visible
 	action_icon.frame = action_type
 	action_icon_under.frame = action_type
-	action_icon.material.set_shader_param("sprite_frame", action_type)
-	action_icon.material.set_shader_param("fill_ratio", 0)
-	zone_highlight.material.set_shader_param("fill_ratio", 1)
+	action_icon.material.set_shader_parameter("sprite_frame", action_type)
+	action_icon.material.set_shader_parameter("fill_ratio", 0)
+	zone_highlight.material.set_shader_parameter("fill_ratio", 1)
 
 func _set_current_action(active : bool):
 	action_step_need = 0

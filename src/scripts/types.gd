@@ -1,5 +1,5 @@
 class_name Types
-extends Reference
+extends RefCounted
 
 enum ACTION_TYPES {
 	AXE = 0, WATERCAN, SWORD, PICKAXE, SHOVEL, ROD, ROD_ALT, PLAYER, PLANT,
