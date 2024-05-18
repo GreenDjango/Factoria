@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Factoria"
-run/main_scene="res://src/scenes/World.tscn"
+run/main_scene="res://src/scenes/world/world.tscn"
 config/features=PackedStringArray("4.2")
 boot_splash/image="res://assets/splashscreen.png"
 config/icon="res://assets/icon.png"
@@ -28,6 +28,10 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
 mouse_cursor/custom_image="res://assets/ui/cursors/cursor_03.png"
+
+[filesystem]
+
+import/blender/enabled=false
 
 [global]
 
@@ -105,5 +109,4 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/defaults/default_environment="res://default_env.tres"
 2d/snapping/use_gpu_pixel_snap=true
