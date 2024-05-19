@@ -1,70 +1,68 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://b506o3lklc5gx"]
 
-[ext_resource path="res://assets/textures/leaf.png" type="Texture2D" id=1]
-[ext_resource path="res://assets/sprites/tileset.png" type="Texture2D" id=2]
-[ext_resource path="res://src/entities/tree/Tree.gd" type="Script" id=3]
+[ext_resource type="Texture2D" uid="uid://cl5u4vnc5orwg" path="res://assets/textures/leaf.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://qm6ga2d8ia8b" path="res://assets/sprites/tileset.png" id="2"]
+[ext_resource type="Script" path="res://src/entities/tree/Tree.gd" id="3"]
 
-[sub_resource type="Gradient" id=2]
-offsets = PackedFloat32Array( 0, 0.79476, 1 )
-colors = PackedColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+[sub_resource type="Gradient" id="Gradient_q47kr"]
+offsets = PackedFloat32Array(0, 0.795, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id=5]
-gradient = SubResource( 2 )
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6v6jt"]
+gradient = SubResource("Gradient_q47kr")
 
-[sub_resource type="ParticleProcessMaterial" id=1]
+[sub_resource type="ParticleProcessMaterial" id="1"]
+particle_flag_disable_z = true
 emission_shape = 2
-emission_box_extents = Vector3( 6, 1, 1 )
-flag_disable_z = true
-direction = Vector3( -1, 0, 0 )
-gravity = Vector3( 0, 10, 0 )
-initial_velocity = 2.0
-initial_velocity_random = 0.5
-angular_velocity = -50.0
-angular_velocity_random = 0.3
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-scale = 0.8
-scale_random = 1.0
-color = Color( 1.35, 1.35, 1.35, 1 )
-color_ramp = SubResource( 5 )
-hue_variation = 0.03
-hue_variation_random = 1.0
+emission_sphere_radius = 6.0
+direction = Vector3(-1, 0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+angular_velocity_min = -50.0
+angular_velocity_max = -25.0
+gravity = Vector3(0, 10, 0)
+scale_min = 0.8
+color = Color(1.35, 1.35, 1.35, 1)
+color_ramp = SubResource("GradientTexture1D_6v6jt")
+hue_variation_min = -0.05
+hue_variation_max = 0.05
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id="4"]
 radius = 6.0
 
 [node name="Tree" type="StaticBody2D"]
-script = ExtResource( 3 )
+texture_filter = 1
+script = ExtResource("3")
 
 [node name="Roots" type="Sprite2D" parent="."]
-position = Vector2( 0, -3 )
-texture = ExtResource( 2 )
+position = Vector2(0, -3)
+texture = ExtResource("2")
 region_enabled = true
-region_rect = Rect2( 32, 208, 16, 16 )
+region_rect = Rect2(32, 208, 16, 16)
 
 [node name="Trunk" type="Sprite2D" parent="."]
-position = Vector2( 0, -8 )
-texture = ExtResource( 2 )
+position = Vector2(0, -8)
+texture = ExtResource("2")
 region_enabled = true
-region_rect = Rect2( 64, 384, 32, 48 )
+region_rect = Rect2(64, 384, 32, 48)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-position = Vector2( 0, -16 )
+position = Vector2(0, -16)
 amount = 2
+process_material = SubResource("1")
+texture = ExtResource("1")
 lifetime = 2.2
 speed_scale = 0.5
 explosiveness = 0.5
-randomness = 0.1
-visibility_rect = Rect2( -16, -16, 32, 48 )
-process_material = SubResource( 1 )
-texture = ExtResource( 1 )
+randomness = 0.5
+visibility_rect = Rect2(-16, -16, 32, 48)
 
 [node name="Foliage" type="Sprite2D" parent="."]
-position = Vector2( 0, -16 )
-texture = ExtResource( 2 )
+position = Vector2(0, -16)
+texture = ExtResource("2")
 region_enabled = true
-region_rect = Rect2( 96, 384, 32, 32 )
+region_rect = Rect2(96, 384, 32, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -1 )
-shape = SubResource( 4 )
+position = Vector2(0, -1)
+shape = SubResource("4")
