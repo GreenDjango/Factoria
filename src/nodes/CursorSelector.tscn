@@ -100,7 +100,6 @@ script = ExtResource("5")
 [node name="ZoneHighlight" type="MeshInstance2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.313726)
 material = SubResource("23")
-position = Vector2(-2.38419e-07, 0)
 mesh = SubResource("2")
 
 [node name="SelectTL" type="Sprite2D" parent="."]

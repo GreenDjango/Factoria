@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://src/scenes/world/world.gd" id="1_8xpl6"]
 [ext_resource type="PackedScene" uid="uid://ofi3otwt0tg6" path="res://src/chunk/Chunk.tscn" id="2_eecga"]
 [ext_resource type="PackedScene" uid="uid://7eiyh5ccrns5" path="res://src/nodes/Player.tscn" id="3_i68fx"]
-[ext_resource type="TileSet" path="res://src/ressources/tileset.tres" id="4_aol16"]
-[ext_resource type="PackedScene" path="res://src/entities/tree/Tree.tscn" id="5_vmwx6"]
-[ext_resource type="PackedScene" path="res://src/entities/rock/Rock.tscn" id="6_ux1eu"]
+[ext_resource type="TileSet" uid="uid://cma50coxkgfo4" path="res://src/ressources/tileset.tres" id="4_aol16"]
+[ext_resource type="PackedScene" uid="uid://b506o3lklc5gx" path="res://src/entities/tree/Tree.tscn" id="5_vmwx6"]
+[ext_resource type="PackedScene" uid="uid://cddiddfqkes8u" path="res://src/entities/rock/Rock.tscn" id="6_ux1eu"]
 [ext_resource type="PackedScene" uid="uid://bs0dnneh8cyn3" path="res://src/nodes/CursorSelector.tscn" id="7_n2666"]
 [ext_resource type="Shader" uid="uid://b8dwx7mujmepx" path="res://src/shaders/tilt_shift.tres" id="8_jceli"]
 
@@ -17,55 +17,55 @@ shader_parameter/blur = 2.0
 [sub_resource type="Sky" id="1"]
 
 [sub_resource type="Environment" id="2"]
-background_mode = 4
 sky = SubResource("1")
-glow_enabled = true
-glow_levels/2 = 1.0
-glow_levels/4 = 1.0
-glow_strength = 1.05
-glow_blend_mode = 0
-glow_hdr_threshold = 0.8
 
 [node name="World" type="Node2D" node_paths=PackedStringArray("player", "chunks_parent")]
+texture_filter = 1
 script = ExtResource("1_8xpl6")
 chunk_scene = ExtResource("2_eecga")
-player = NodePath("Node2D/Player")
-chunks_parent = NodePath("Node2D/Chunks")
+player = NodePath("Ysort/Player")
+chunks_parent = NodePath("Ysort/Chunks")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Ysort" type="Node2D" parent="."]
+y_sort_enabled = true
 
-[node name="Chunks" type="Node2D" parent="Node2D"]
+[node name="Chunks" type="Node2D" parent="Ysort"]
+y_sort_enabled = true
 
-[node name="Player" parent="Node2D" instance=ExtResource("3_i68fx")]
+[node name="Player" parent="Ysort" instance=ExtResource("3_i68fx")]
 position = Vector2(464, 296)
 
-[node name="Path3D" type="TileMap" parent="Node2D"]
+[node name="Path3D" type="TileMap" parent="Ysort"]
 tile_set = ExtResource("4_aol16")
 format = 2
 layer_0/tile_data = PackedInt32Array(131080, 9, 1, 131081, 131081, 0, 131082, 131081, 0, 131083, 131081, 0, 196616, 9, 2, 196617, 65545, 2, 196618, 196617, 2, 196619, 131082, 0, 196620, 196617, 1, 196621, 131081, 0, 196622, 131081, 0, 262152, 9, 3, 262153, 131081, 4, 262154, 65545, 3, 262155, 131081, 2, 262156, 65545, 2, 262157, 131082, 0, 262158, 131082, 0, 262159, 196617, 1, 262160, 131081, 0, 262161, 131081, 0, 327691, 131081, 4, 327692, 65545, 3, 327693, 131082, 0, 327694, 131082, 0, 327695, 65545, 2, 327696, 131081, 1, 327697, 131082, 0, 327698, 196617, 1, 327699, 131081, 0, 327700, 131081, 0, 393229, 65545, 3, 393230, 131081, 1, 393231, 131081, 3, 393232, 131082, 0, 393233, 131082, 0, 393234, 131082, 0, 393235, 131082, 0, 393236, 131081, 2, 393237, 196617, 1, 393238, 131081, 0, 393239, 131081, 0, 393240, 131081, 0, 458766, 131081, 4, 458767, 131081, 4, 458768, 65545, 3, 458769, 131081, 2, 458770, 131081, 1, 458771, 196617, 2, 458772, 65545, 2, 458773, 131082, 0, 458774, 131081, 3, 458775, 131082, 0, 458776, 131081, 1, 524305, 131081, 4, 524306, 131081, 4, 524307, 65545, 3, 524308, 131082, 0, 524309, 131081, 1, 524310, 131082, 0, 524311, 65545, 2, 524312, 131081, 3, 589844, 131081, 4, 589845, 131081, 4, 589846, 131081, 4, 589847, 131081, 4, 589848, 131081, 4)
 
-[node name="Misc" type="TileMap" parent="Node2D"]
+[node name="Misc" type="TileMap" parent="Ysort"]
+y_sort_enabled = true
 tile_set = ExtResource("4_aol16")
 format = 2
+layer_0/y_sort_enabled = true
 layer_0/tile_data = PackedInt32Array(589835, 6, 0)
 
-[node name="Trees" type="Node2D" parent="Node2D"]
+[node name="Trees" type="Node2D" parent="Ysort"]
+y_sort_enabled = true
 
-[node name="Tree" parent="Node2D/Trees" instance=ExtResource("5_vmwx6")]
+[node name="Tree" parent="Ysort/Trees" instance=ExtResource("5_vmwx6")]
 position = Vector2(104, 152)
 
-[node name="Tree2" parent="Node2D/Trees" instance=ExtResource("5_vmwx6")]
+[node name="Tree2" parent="Ysort/Trees" instance=ExtResource("5_vmwx6")]
 position = Vector2(72, 152)
 
-[node name="Tree3" parent="Node2D/Trees" instance=ExtResource("5_vmwx6")]
+[node name="Tree3" parent="Ysort/Trees" instance=ExtResource("5_vmwx6")]
 position = Vector2(136, 152)
 
-[node name="Rocks" type="Node2D" parent="Node2D"]
+[node name="Rocks" type="Node2D" parent="Ysort"]
+y_sort_enabled = true
 
-[node name="Rock" parent="Node2D/Rocks" instance=ExtResource("6_ux1eu")]
+[node name="Rock" parent="Ysort/Rocks" instance=ExtResource("6_ux1eu")]
 position = Vector2(136, 200)
 
-[node name="Rock2" parent="Node2D/Rocks" instance=ExtResource("6_ux1eu")]
+[node name="Rock2" parent="Ysort/Rocks" instance=ExtResource("6_ux1eu")]
 position = Vector2(216, 168)
 
 [node name="CursorSelector" parent="." instance=ExtResource("7_n2666")]
@@ -78,6 +78,9 @@ material = SubResource("3")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("2")

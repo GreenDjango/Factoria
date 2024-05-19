@@ -18,7 +18,3 @@ enum ENTITIES_ID {
 }
 
 var chunks := {}
-
-func _ready():
-	pass
-
