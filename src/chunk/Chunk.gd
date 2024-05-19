@@ -20,7 +20,6 @@ func setup(_chunk_coords : Vector2):
 	position = Chunk.coords_to_world_position(chunk_coords)
 	$Coords.text = str(chunk_coords)
 	_generate_ground_grass()
-	_apply_ground_checkboard()
 	_generate_entities()
 
 func _generate_ground_grass():
@@ -30,18 +29,11 @@ func _generate_ground_grass():
 		while y < CHUNK_SIZE.y:
 			var cell = ground.get_cell_source_id(-1, Vector2i(x, y))
 			if (cell == -1):
-				ground.set_cell(-1, Vector2i(x, y), 15)
+				var source_id := 1 if (x % 2 == y % 2) else 2
+				ground.set_cell(-1, Vector2i(x, y), source_id, Vector2i(0, 0))
 			y += 1
 		y = 0
 		x += 1
-
-func _apply_ground_checkboard():
-	var used_cells = ground.get_used_cells_by_id(-1, 15)
-	for cell in used_cells:
-		if (int(cell.x) % 2 == int(cell.y) % 2):
-			ground.set_cellv(cell, 16)
-		else:
-			ground.set_cellv(cell, 17)
 
 func _generate_entities():
 	if (chunk_id == "0:0" || chunk_id == "1:0"):
